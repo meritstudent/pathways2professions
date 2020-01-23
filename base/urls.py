@@ -1,10 +1,9 @@
 from django.urls import path, include
 
 from django.contrib import admin
+from django.views.generic import TemplateView
 
 admin.autodiscover()
-
-import goodbye.views
 
 # To add a new path, first import the app:
 # import blog
@@ -12,10 +11,9 @@ import goodbye.views
 # Then add the new path:
 # path('blog/', blog.urls, name="blog")
 #
-# Learn more here: https://docs.djangoproject.com/en/2.1/topics/http/urls/
+# Learn more here: https://docs.djangoproject.com/en/3.0/topics/http/urls/
 
 urlpatterns = [
-    path("", goodbye.views.index, name="index"),
-    path("db/", goodbye.views.db, name="db"),
-    path("admin/", admin.site.urls),
+    path("", TemplateView.as_view(template_name="index.html"), name="index"),
+    path("/admin/", admin.site.urls),
 ]

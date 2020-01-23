@@ -1,0 +1,14 @@
+@import './settings';
+
+body {
+  margin: 0;
+}
+
+nav {
+  padding: 1rem;
+  background: $mainColor;
+}
+
+nav a {
+  color: white;
+}
