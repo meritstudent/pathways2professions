@@ -7,13 +7,21 @@ class Organization(models.Model):
     description = models.CharField(max_length=300)
     location = models.CharField(max_length=50)
 
+    def __str__(self):
+        return self.name
+
 # class Favorite(models.Model):
 #     _org = models.ForeignKey(to=Organization, on_delete=models.CASCADE)
 
 class Tag(models.Model):
     CTE_area = models.CharField( max_length=50)
+    def __str__(self):
+        return self.CTE_area
 
 class OTRelation(models.Model):
 
     _tag =models.ForeignKey(to=Tag, on_delete=models.CASCADE)
     _org =models.ForeignKey(to=Organization, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self._org.__str__() +" #"+ self._tag.__str__()

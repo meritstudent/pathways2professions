@@ -2,4 +2,18 @@
 
 {% block content %}
     <h1>Organizations</h1>
+
+    <form title="organizations" action="organizations" method="POST">
+
+            {% csrf_token %}
+            {{filter}}
+            <button type="submit" id="submitBt">filter</button>
+        </form>
+
+    <ul class="filter_results">
+        {% for org in orgs %}
+            <li> <h3> {{org.name}} - {{org.location}} </h3> <a href="{{org.link}}">{{org.link}}</a> <p>{{org.description}}</p> </li>
+        {% endfor %}
+    </ul>
+
 {% endblock %}

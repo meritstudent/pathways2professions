@@ -12,28 +12,53 @@ def map_view(request):
 def about(request):
     return render(request, template_name="about.html")
 
+def external(request):
+    pass
+
 
 def organizations(request):
-
+    filter_form =FilterForm()
     if request.method == 'POST':
         form = FilterForm(request.POST)
 
         if form.is_valid():
             # get Tags from database
-            tags = Tags.objects.filter(CTE_area=form.form.cleaned_data['tag'])
+            tags = Tag.objects.filter(CTE_area= form.cleaned_data['tag']).get()
             # get OTRelations using Tags
-            OTRelations = []
-            # TODO: get multiple tags at once
-            for tag in tags:
-                OTRelations.append( OTRelation.objects.filter(_tag=tag) )
+            OTRelations = OTRelation.objects.filter(_tag=tags)
             # get Organizations using OTRelations
+            organizations = []
+            for relation in OTRelations:
+                organizations.append(relation._org)
 
-            # get Organizations using cached favorites
-            # add Organizations to a list
+            # TODO: get Organizations using cached favorites
+            # add Organizations to a list with displayed values
+            orgs = []
+            for org in organizations:
+                if not "https://" in org.link and not "http://" in org.link:
+                    org.link = "https://" + org.link
+                orgs.append({
+                    'name': org.name,
+                    'link': org.link,
+                    'description': org.description,
+                    'location': org.location
+                })
             # render with Organizations list
-
-            pass
+            return render(request,
+                            template_name="organizations.html",
+                            context={
+                                'orgs': orgs,
+                                'filter': filter_form,
+                            })
+    
+    orgs = Organization.objects.all()
+        
         
 
-    return render(request, template_name="organizations.html")
+    return render(request, 
+                    template_name="organizations.html",
+                    context={ 
+                        'orgs': orgs,
+                        'filter': filter_form
+                        })
     

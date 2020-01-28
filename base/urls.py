@@ -23,4 +23,5 @@ urlpatterns = [
     path('organizations', organizations, name="organizations"),
     path('map', map_view, name="map"),
     path('about', about, name="about"),
+    # path('external_link/<str:link>', external, name="link")
 ]
