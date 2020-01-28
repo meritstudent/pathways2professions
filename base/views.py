@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .organizations.forms import FilterForm
+from .organizations.forms import FilterForm, all_tags
 from .organizations.models import Organization, OTRelation, Tag
 
 # Create your views here.
@@ -23,7 +23,17 @@ def organizations(request):
 
         if form.is_valid():
             # get Tags from database
-            tags = Tag.objects.filter(CTE_area= form.cleaned_data['tag']).get()
+            select = form.cleaned_data['tags']
+            select_str = []
+
+            for tag in select:
+                import pdb; pdb.set_trace()
+                select_str.append( all_tags[int(tag)][1] )
+
+            
+
+
+            tags = Tag.objects.filter(CTE_area= select_str ).get()
             # get OTRelations using Tags
             OTRelations = OTRelation.objects.filter(_tag=tags)
             # get Organizations using OTRelations
