@@ -1,5 +1,22 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>Hello World</h1>
+    <script src="../static/js/script.js"></script>
+    <h1 class="word">Welcome to
+    <span
+        class="txt-rotate"
+        data-period="2000"
+        data-rotate='[ "P2P !" ]'></span>
+    </h1>
+    <h2>February 18-19, 2020<br>
+        8:30am-2:30pm<br>
+        Mountain America Expo Center
+    </h2>
+    <hr color="white" size="1">
+    <br>
+    <a href="about" class="myButton">About us</a>
+    <a href="organizations" class="myButton">Organizations</a>
+    <a href="map" class="myButton">Map</a>
+    {% comment %} <a href="favourites.html" class="myButton">My favourites</a> {% endcomment %}
+    {% comment %} <a href="fliter.html" class="myButton">Fliter</a> {% endcomment %}
 {% endblock %}

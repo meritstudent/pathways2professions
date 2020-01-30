@@ -12,9 +12,6 @@ def map_view(request):
 def about(request):
     return render(request, template_name="about.html")
 
-def external(request):
-    pass
-
 
 def organizations(request):
     filter_form =FilterForm()
@@ -27,15 +24,14 @@ def organizations(request):
             select_str = []
 
             for tag in select:
-                import pdb; pdb.set_trace()
                 select_str.append( all_tags[int(tag)][1] )
 
             
 
-
-            tags = Tag.objects.filter(CTE_area= select_str ).get()
+            # adding __in lets it use a list
+            tags = Tag.objects.filter(CTE_area__in= select_str )
             # get OTRelations using Tags
-            OTRelations = OTRelation.objects.filter(_tag=tags)
+            OTRelations = OTRelation.objects.filter(_tag__in=tags)
             # get Organizations using OTRelations
             organizations = []
             for relation in OTRelations:
