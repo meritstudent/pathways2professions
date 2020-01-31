@@ -12,7 +12,28 @@
 
     <ul class="filter_results">
         {% for org in orgs %}
-            <li> <h3> {{org.name}} - {{org.location}} </h3> <a href="{{org.link}}">{{org.link}}</a> <p>{{org.description}}</p> </li>
+            <li> 
+                <h3> {{org.name}} - {{org.location}} </h3> 
+                <a href="{{org.link}}">{{org.link}}</a> 
+                <p>{{org.description}}</p> 
+                {% if org.id in favorites %}
+                    <input id="{{org.name}}" type="checkbox" value="True">
+                {% else %}
+                    <input id="{{org.name}}" type="checkbox" value="False">
+                {% endif %}
+            </li>
+
+            <script type="text/javascript">
+            $(document).ready(function() {
+                $('#{{org.name}}').change(function() {
+                    $.post("toggle", {
+                        id: '{{org.id}}', 
+                        favorite: this.checked, 
+                        csrfmiddlewaretoken: '{{ csrf_token }}' 
+                    });
+                });
+            }); 
+            </script>
         {% endfor %}
     </ul>
 

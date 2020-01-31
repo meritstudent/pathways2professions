@@ -3,7 +3,7 @@ from django.urls import path, include
 from django.contrib import admin
 from django.views.generic import TemplateView
 
-from .views import index, organizations, map_view, about
+from .views import index, organizations, map_view, about, toggle
 
 admin.autodiscover()
 
@@ -23,5 +23,6 @@ urlpatterns = [
     path('organizations', organizations, name="organizations"),
     path('map', map_view, name="map"),
     path('about', about, name="about"),
-    # path('external_link/<str:link>', external, name="link")
+    
+    path('toggle', toggle, name="toggle"),
 ]
