@@ -16,6 +16,13 @@ def about(request):
 
 def organizations(request):
     form = FilterForm(request.POST)
+
+    favorite_list =[]
+    # import pdb; pdb.set_trace()
+    try:
+        favorite_list = request.session["favorites"]
+    except:
+        pass
     if request.method == 'POST':
         # form = FilterForm(request.POST)
 
@@ -64,17 +71,17 @@ def organizations(request):
                     'location': org.location,
                     'id': org.id
                 })
+
             # render with Organizations list
             return render(request,
                             template_name="organizations.html",
                             context={
                                 'orgs': orgs,
                                 'filter': form,
-                                'favorites': request.session["favorites"],
+                                'favorites': favorite_list,
                             })
     
     orgs = Organization.objects.all()
-        
         
 
     return render(request, 
@@ -82,13 +89,13 @@ def organizations(request):
                     context={ 
                         'orgs': orgs,
                         'filter': form,
-                        'favorites': request.session["favorites"],
+                        'favorites': favorite_list,
                         })
     
 
 def toggle(request):
-    import pdb; pdb.set_trace()
     try:
+        import pdb; pdb.set_trace()
         favorites_list = request.session["favorites"]
         if (request.POST['favorite']== "true") :
             favorites_list.append( request.POST['id'] )

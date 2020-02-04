@@ -17,24 +17,27 @@
                 <a href="{{org.link}}">{{org.link}}</a> 
                 <p>{{org.description}}</p> 
                 {% if org.id in favorites %}
-                    <input id="{{org.name}}" type="checkbox" value="True">
+                    <input id="{{org.id}}" type="checkbox" class="favorite_checkbox" checked>
                 {% else %}
-                    <input id="{{org.name}}" type="checkbox" value="False">
+                    <input id="{{org.id}}" type="checkbox" class="favorite_checkbox">
                 {% endif %}
             </li>
+        {% endfor %}
 
             <script type="text/javascript">
-            $(document).ready(function() {
-                $('#{{org.name}}').change(function() {
-                    $.post("toggle", {
-                        id: '{{org.id}}', 
-                        favorite: this.checked, 
-                        csrfmiddlewaretoken: '{{ csrf_token }}' 
-                    });
+                window.addEventListener("click", function(e) {
+                    if (e.target.className === "favorite_checkbox") {
+                        $.post("toggle", {
+                                id: e.target.id, 
+                                favorite: e.target.checked,
+                                csrfmiddlewaretoken: '{{ csrf_token }}' 
+                        });
+                    }
+
                 });
-            }); 
             </script>
-        {% endfor %}
+            
+        
     </ul>
 
 {% endblock %}
