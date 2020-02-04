@@ -146,3 +146,30 @@ hr{
   margin-right:80px;
 
 }
+
+// Star
+.favorite_checkbox {
+  visibility:hidden;
+  font-size:30px;
+  color: black;
+  -webkit-text-fill-color: #e7bb6a; /* Will override color (regardless of order) */
+  -webkit-text-stroke-width: 2px;
+  -webkit-text-stroke-color: black;
+  height: 0;
+  width: 0;
+  cursor:pointer;
+  pointer-events: none; 
+}
+.favorite_checkbox:before {
+ content: "\2606"; // Hollow star
+ position: absolute;
+ visibility:visible;
+ pointer-events: auto;
+ margin: -32px 0;
+}
+.favorite_checkbox:checked:before {
+ content: "\2605"; // Filled in star
+ position: absolute;
+ pointer-events: auto;
+ margin: -32px 0;
+}
