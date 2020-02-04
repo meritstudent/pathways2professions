@@ -18,9 +18,9 @@ def organizations(request):
     form = FilterForm(request.POST)
 
     favorite_list =[]
-    # import pdb; pdb.set_trace()
     try:
         favorite_list = request.session["favorites"]
+        favorite_list = [int(i) for i in favorite_list]
     except:
         pass
     if request.method == 'POST':
@@ -38,27 +38,26 @@ def organizations(request):
             tags = Tag.objects.filter(CTE_area__in= select_str )
             # get OTRelations using Tags
             OTRelations = OTRelation.objects.filter(_tag__in=tags)
-            # get Organizations using OTRelations
 
+            # get Organizations using cached favorites
             organizations = []
             favorites = []
-            # import pdb 
-            # pdb.set_trace
             try:
                 favorites = Organization.objects.filter(id__in=request.session["favorites"])
             except:
                 pass
-    
 
             if form.cleaned_data['favorites']:
                 for favorite in favorites:
-                    organizations.append(favorite)
+                    if not favorite in organizations:
+                        organizations.append(favorite)
 
+            # get Organizations using OTRelations
             for relation in OTRelations:
-                organizations.append(relation._org)
+                if not relation._org in organizations:
+                    organizations.append(relation._org)
             
 
-            # TODO: get Organizations using cached favorites
             # add Organizations to a list with displayed values
             orgs = []
             for org in organizations:
@@ -80,8 +79,18 @@ def organizations(request):
                                 'filter': form,
                                 'favorites': favorite_list,
                             })
-    
-    orgs = Organization.objects.all()
+    orgs =[]
+    organizations = Organization.objects.all()
+    for org in organizations:
+                if not "https://" in org.link and not "http://" in org.link:
+                    org.link = "https://" + org.link
+                orgs.append({
+                    'name': org.name,
+                    'link': org.link,
+                    'description': org.description,
+                    'location': org.location,
+                    'id': org.id
+                })
         
 
     return render(request, 
@@ -95,7 +104,6 @@ def organizations(request):
 
 def toggle(request):
     try:
-        import pdb; pdb.set_trace()
         favorites_list = request.session["favorites"]
         if (request.POST['favorite']== "true") :
             favorites_list.append( request.POST['id'] )

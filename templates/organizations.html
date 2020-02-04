@@ -16,10 +16,11 @@
                 <h3> {{org.name}} - {{org.location}} </h3> 
                 <a href="{{org.link}}">{{org.link}}</a> 
                 <p>{{org.description}}</p> 
+
                 {% if org.id in favorites %}
-                    <input id="{{org.id}}" type="checkbox" class="favorite_checkbox" checked>
+                    <input id="{{org.id}}" type="checkbox" class="favorite_checkbox" label="favorite" checked>
                 {% else %}
-                    <input id="{{org.id}}" type="checkbox" class="favorite_checkbox">
+                    <input id="{{org.id}}" type="checkbox" class="favorite_checkbox" label="favorite">
                 {% endif %}
             </li>
         {% endfor %}
