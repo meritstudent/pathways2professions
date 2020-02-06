@@ -1,5 +1,5 @@
 @import './settings';
-$tag-background: #42ce7c;
+$tag-background: #3cb47c;
 // body {
 //   margin: 0;
 // }
@@ -17,7 +17,6 @@ p {
   word-wrap: break-word;
 }
 
-@import url('https://fonts.googleapis.com/css?family=Indie+Flower&display=swap');
 *{
     margin:0;
     padding:0;
@@ -26,7 +25,7 @@ p {
     box-sizing:border-box;
 }
 body {
-  font-family: 'Indie Flower', cursive;
+  font-family: $fontFamily;
 }
 
 #logo{
@@ -97,6 +96,13 @@ p{
   color:rgb(0, 0, 0); 
 }
 
+main {
+  padding: 0 16px;
+}
+ul {
+  list-style-type: none;
+}
+
 .word {
   margin-top: 4em;
   font-size: 36px;
@@ -104,9 +110,12 @@ p{
   text-align:center;
 }
 
-h1,h2 {
-  font-weight: 200;
-  margin: 0.4em 0;
+h1{
+  text-align: center;
+  h2 {
+    font-weight: 200;
+    margin: 0.4em 0;
+  }
 }
 h2 {
   color: rgba(255, 255, 255, 0.76);
@@ -179,10 +188,31 @@ hr{
 .tagView{
   background: $tag-background; 
   color: white; 
-  padding: 3px; 
+  padding: 2px; 
   border-radius: 8px;
+  font-size: 8pt;
 }
 
 .orgView{
   position: relative;
+  margin-top: 16px;
+}
+
+.button {
+  background: linear-gradient(to bottom, #d4d4d4 5%, #ababab 100%);
+  background-color: #d4d4d4;
+  display: inline-block;
+  cursor: pointer;
+  color: #000000;
+  font-family: 'Roboto Condensed';
+}
+
+.button:hover {
+  background:linear-gradient(to bottom, #ababab 5%, #d4d4d4 100%);
+	background-color:#ababab;
+}
+
+.button:active {
+  position: relative;
+  top: 1px;
 }

@@ -92,6 +92,8 @@ def organizations(request):
                                 'favorites': favorite_list,
                                 'hide_filter': True
                             })
+    
+    ############################## when not filtered #####################################
     orgs =[]
     organizations = Organization.objects.all()
     for org in organizations:
