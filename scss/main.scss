@@ -1,5 +1,5 @@
 @import './settings';
-
+$tag-background: #42ce7c;
 // body {
 //   margin: 0;
 // }
@@ -94,8 +94,7 @@ body{
 }
 
 p{
-  color:rgb(0, 0, 0);
-  font-size:36px;
+  color:rgb(0, 0, 0); 
 }
 
 .word {
@@ -159,6 +158,8 @@ hr{
   width: 0;
   cursor:pointer;
   pointer-events: none; 
+
+  float: right;
 }
 .favorite_checkbox:before {
  content: "\2606"; // Hollow star
@@ -172,4 +173,11 @@ hr{
  position: absolute;
  pointer-events: auto;
  margin: -32px 0;
+}
+
+.tagView{
+  background: $tag-background; 
+  color: white; 
+  padding: 3px; 
+  border-radius: 8px;
 }

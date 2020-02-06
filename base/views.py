@@ -78,6 +78,7 @@ def organizations(request):
                                 'orgs': orgs,
                                 'filter': form,
                                 'favorites': favorite_list,
+                                'hide_filter': True
                             })
     orgs =[]
     organizations = Organization.objects.all()
@@ -99,6 +100,7 @@ def organizations(request):
                         'orgs': orgs,
                         'filter': form,
                         'favorites': favorite_list,
+                        'hide_filter': False
                         })
     
 

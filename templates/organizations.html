@@ -3,25 +3,31 @@
 {% block content %}
     <h1>Organizations</h1>
 
-    <form title="organizations" action="organizations" method="POST">
+    <button onclick="hideOptions()">Filter Options</button>
+    <div id="options_div">
+        <form title="organizations" action="organizations" method="POST">
 
-            {% csrf_token %}
-            {{filter}}
-            <button type="submit" id="submitBt">filter</button>
-        </form>
+                {% csrf_token %}
+                {{filter}}
+                <button type="submit" id="submitBt">filter</button>
+            </form>
+    </div>
 
     <ul class="filter_results">
         {% for org in orgs %}
             <li> 
-                <h3> {{org.name}} - {{org.location}} </h3> 
-                <a href="{{org.link}}">{{org.link}}</a> 
-                <p>{{org.description}}</p> 
+                <h3> {{org.name}} </h3> 
 
                 {% if org.id in favorites %}
                     <input id="{{org.id}}" type="checkbox" class="favorite_checkbox" label="favorite" checked>
                 {% else %}
                     <input id="{{org.id}}" type="checkbox" class="favorite_checkbox" label="favorite">
                 {% endif %}
+
+                <p>{{org.location}} -<span class="tagView">tag1</span> <span class="tagView">tag2 </span> </p>
+                <p>{{org.description}}</p> 
+                <a href="{{org.link}}">{{org.link}}</a> 
+
             </li>
         {% endfor %}
 
@@ -36,6 +42,19 @@
                     }
 
                 });
+
+                {% if hide_filter %}
+                    hideOptions()
+                {% endif %}
+
+                function hideOptions(){
+                    var x = document.getElementById("options_div");
+                    if (x.style.display === "none") {
+                        x.style.display = "block";
+                    } else {
+                        x.style.display = "none";
+                    }
+                }
             </script>
             
         
