@@ -15,7 +15,7 @@
 
     <ul class="filter_results">
         {% for org in orgs %}
-            <li> 
+            <li class="orgView" > 
                 <h3> {{org.name}} </h3> 
 
                 {% if org.id in favorites %}
@@ -24,7 +24,12 @@
                     <input id="{{org.id}}" type="checkbox" class="favorite_checkbox" label="favorite">
                 {% endif %}
 
-                <p>{{org.location}} -<span class="tagView">tag1</span> <span class="tagView">tag2 </span> </p>
+                <p>{{org.location}} - 
+                    {% for tag in org.tags %}
+                        <span class="tagView"> {{tag}}</span>
+                    {% endfor %}
+                </p>
+
                 <p>{{org.description}}</p> 
                 <a href="{{org.link}}">{{org.link}}</a> 
 

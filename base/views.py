@@ -57,10 +57,21 @@ def organizations(request):
                 if not relation._org in organizations:
                     organizations.append(relation._org)
             
+            
+            
 
             # add Organizations to a list with displayed values
             orgs = []
             for org in organizations:
+
+                # get relations
+                relations = OTRelation.objects.filter(_org= org)
+                # get tags
+                org_tags = []
+                for relation in relations:
+                    org_tags.append(relation._tag.CTE_area)
+                
+
                 if not "https://" in org.link and not "http://" in org.link:
                     org.link = "https://" + org.link
                 orgs.append({
@@ -68,7 +79,8 @@ def organizations(request):
                     'link': org.link,
                     'description': org.description,
                     'location': org.location,
-                    'id': org.id
+                    'id': org.id,
+                    'tags': org_tags
                 })
 
             # render with Organizations list
@@ -83,6 +95,15 @@ def organizations(request):
     orgs =[]
     organizations = Organization.objects.all()
     for org in organizations:
+
+                # get relations
+                relations = OTRelation.objects.filter(_org= org)
+                # get tags
+                org_tags = []
+                for relation in relations:
+                    org_tags.append(relation._tag.CTE_area)
+
+
                 if not "https://" in org.link and not "http://" in org.link:
                     org.link = "https://" + org.link
                 orgs.append({
@@ -90,7 +111,8 @@ def organizations(request):
                     'link': org.link,
                     'description': org.description,
                     'location': org.location,
-                    'id': org.id
+                    'id': org.id,
+                    'tags': org_tags
                 })
         
 

@@ -159,7 +159,8 @@ hr{
   cursor:pointer;
   pointer-events: none; 
 
-  float: right;
+  position: absolute;
+  right: 32px;
 }
 .favorite_checkbox:before {
  content: "\2606"; // Hollow star
@@ -180,4 +181,8 @@ hr{
   color: white; 
   padding: 3px; 
   border-radius: 8px;
+}
+
+.orgView{
+  position: relative;
 }
