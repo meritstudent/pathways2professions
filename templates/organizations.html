@@ -26,7 +26,7 @@
 
                 <p>{{org.location}} - 
                     {% for tag in org.tags %}
-                        <span class="tagView"> {{tag}}</span>
+                        <span class="tagView tag{{tag.id}}" > {{tag}}</span>
                     {% endfor %}
                 </p>
 
