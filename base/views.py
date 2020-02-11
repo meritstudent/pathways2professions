@@ -51,12 +51,17 @@ def organizations(request):
                 for favorite in favorites:
                     if not favorite in organizations:
                         organizations.append(favorite)
+            
 
             # get Organizations using OTRelations
             for relation in OTRelations:
                 if not relation._org in organizations:
                     organizations.append(relation._org)
             
+            # if there are no active filters get all organizations
+            if not tags:
+                if not form.cleaned_data['favorites']:
+                    organizations = Organization.objects.all()
             
             
 
@@ -69,7 +74,7 @@ def organizations(request):
                 # get tags
                 org_tags = []
                 for relation in relations:
-                    org_tags.append(relation._tag.CTE_area)
+                    org_tags.append(relation._tag)
                 
 
                 if not "https://" in org.link and not "http://" in org.link:
@@ -103,7 +108,7 @@ def organizations(request):
                 # get tags
                 org_tags = []
                 for relation in relations:
-                    org_tags.append(relation._tag.CTE_area)
+                    org_tags.append(relation._tag)
 
 
                 if not "https://" in org.link and not "http://" in org.link:
