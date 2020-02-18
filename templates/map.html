@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
     <h1>Map</h1>
-    <img src="">
+    <div class="map-relative">
+        <img class="map-absolute" src="{% static 'img/map.svg' %}">
+    </div>
 {% endblock %}

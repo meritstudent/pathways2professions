@@ -103,10 +103,12 @@ p{
 
 main {
   padding: 0 16px;
+  min-height: calc(100vh - 60px);
 }
 ul {
   list-style-type: none;
 }
+
 
 .word {
   margin-top: 4em;
@@ -116,6 +118,7 @@ ul {
 }
 
 h1{
+  margin: 16px 0;
   text-align: center;
   h2 {
     font-weight: 200;
@@ -161,10 +164,6 @@ hr{
   margin-left:80px;
   margin-right:80px;
 
-}
-
-img {
-  // background: #00000011;
 }
 
 // Star
@@ -241,4 +240,17 @@ img {
 
 .aboutText {
   margin-top: 20px;
+}
+
+.map-relative {
+  position: relative;
+  overflow: scroll;
+  height: calc(100vh - 130px);
+}
+
+.map-absolute {
+  position: absolute;
+  top: 0;
+  right: 50%;
+  transform: translateX(50%);
 }
