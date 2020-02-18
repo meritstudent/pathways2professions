@@ -43,7 +43,7 @@ def organizations(request):
             organizations = []
             favorites = []
             try:
-                favorites = Organization.objects.filter(id__in=request.session["favorites"])
+                favorites = Organization.objects.filter(id__in=request.session["favorites"]).order_by("name")
             except:
                 pass
 
@@ -61,7 +61,7 @@ def organizations(request):
             # if there are no active filters get all organizations
             if not tags:
                 if not form.cleaned_data['favorites']:
-                    organizations = Organization.objects.all()
+                    organizations = Organization.objects.all().order_by("name")
             
             
 
@@ -90,47 +90,46 @@ def organizations(request):
 
             # render with Organizations list
             return render(request,
-                            template_name="organizations.html",
-                            context={
-                                'orgs': orgs,
-                                'filter': form,
-                                'favorites': favorite_list,
-                                'hide_filter': True
-                            })
+                template_name="organizations.html",
+                context={
+                    'orgs': orgs,
+                    'filter': form,
+                    'favorites': favorite_list,
+                    'hide_filter': True
+                })
     
     ############################## when not filtered #####################################
     orgs =[]
-    organizations = Organization.objects.all()
+    organizations = Organization.objects.all().order_by("name")
     for org in organizations:
+        # get relations
+        relations = OTRelation.objects.filter(_org= org)
+        # get tags
+        org_tags = []
+        for relation in relations:
+            org_tags.append(relation._tag)
 
-                # get relations
-                relations = OTRelation.objects.filter(_org= org)
-                # get tags
-                org_tags = []
-                for relation in relations:
-                    org_tags.append(relation._tag)
 
-
-                if not "https://" in org.link and not "http://" in org.link:
-                    org.link = "https://" + org.link
-                orgs.append({
-                    'name': org.name,
-                    'link': org.link,
-                    'description': org.description,
-                    'location': org.location,
-                    'id': org.id,
-                    'tags': org_tags
-                })
+        if not "https://" in org.link and not "http://" in org.link:
+            org.link = "https://" + org.link
+        orgs.append({
+            'name': org.name,
+            'link': org.link,
+            'description': org.description,
+            'location': org.location,
+            'id': org.id,
+            'tags': org_tags
+        })
         
 
     return render(request, 
-                    template_name="organizations.html",
-                    context={ 
-                        'orgs': orgs,
-                        'filter': form,
-                        'favorites': favorite_list,
-                        'hide_filter': False
-                        })
+        template_name="organizations.html",
+        context={ 
+            'orgs': orgs,
+            'filter': form,
+            'favorites': favorite_list,
+            'hide_filter': False
+        })
     
 
 def toggle(request):

@@ -10,6 +10,9 @@ class Organization(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        ordering = ['name']
+
 # class Favorite(models.Model):
 #     _org = models.ForeignKey(to=Organization, on_delete=models.CASCADE)
 
@@ -17,6 +20,9 @@ class Tag(models.Model):
     CTE_area = models.CharField( max_length=50)
     def __str__(self):
         return self.CTE_area
+
+    class Meta:
+        ordering = ['CTE_area']
 
 class OTRelation(models.Model):
 
