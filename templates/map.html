@@ -3,7 +3,10 @@
 
 {% block content %}
     <h1>Map</h1>
-    <div class="map-relative">
-        <img class="map-absolute" src="{% static 'img/map.svg' %}">
+    <div id="map-wrap" class="map-relative">
+        <img id="map" class="map-absolute" src="{% static 'img/map.svg' %}">
+        <script src="{% static 'js/script.js' %}">
+            attachPinch("map-wrap", "map")
+        </script>
     </div>
 {% endblock %}
