@@ -4,7 +4,7 @@ from django.db import models
 class Organization(models.Model):  
     name = models.CharField(max_length=100)
     link = models.CharField(max_length=50)
-    description = models.CharField(max_length=300)
+    description = models.CharField(max_length=300, blank=True)
     location = models.CharField(max_length=50)
 
     def __str__(self):
